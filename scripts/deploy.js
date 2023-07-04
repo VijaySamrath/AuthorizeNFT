@@ -23,7 +23,7 @@ async function main() {
 
 
 const Suzuki = await hre.ethers.getContractFactory("Suzuki");
-const suzuki = await Suzuki.deploy("block.timestamp");
+const suzuki = await Suzuki.deploy();
 
 await suzuki.deployed();
 
