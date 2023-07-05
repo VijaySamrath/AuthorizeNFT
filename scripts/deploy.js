@@ -15,28 +15,25 @@ async function main() {
 
   // We get the contract to deploy
   const myToken = await hre.ethers.deployContract("MyToken");
-  // const myToken = await MyToken.deploy();
 
   await myToken.waitForDeployment();
 
   console.log("MyToken deployed to:", myToken.target);
 
+  const suzuki = await hre.ethers.deployContract("Suzuki");
 
+  await suzuki.waitForDeployment();
 
-const suzuki = await hre.ethers.deployContract("Suzuki");
-// const suzuki = await Suzuki.deploy();
+  console.log("Suzuki deployed to:", suzuki.target);
 
-await suzuki.waitForDeployment();
+  const authorizeContract = await hre.ethers.deployContract(
+    "AuthorizeContract",
+    [suzuki.target, myToken.target]
+  );
 
-console.log("Suzuki deployed to:", suzuki.target);
+  await authorizeContract.waitForDeployment();
 
-const authorizeContract = await hre.ethers.deployContract("AuthorizeContract",[suzuki.target , myToken.target] );
-// const authorizeContract = await AuthorizeContract.deploy(suzuki.target , myToken.target);
-
-await authorizeContract.waitForDeployment();
-
-console.log("AuthorizeContract deployed to:", authorizeContract.target);
-
+  console.log("AuthorizeContract deployed to:", authorizeContract.target);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
