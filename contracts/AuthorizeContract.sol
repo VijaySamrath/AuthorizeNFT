@@ -36,6 +36,5 @@ contract AuthorizeContract is Ownable, ERC721Holder {
         uint256 interval = (block.timestamp - _mintTimestamp) / 2 days;
         uint256 intervalAmount = (interval * 50) + 100;
         return intervalAmount;
-    }
-    
+    }   
 }

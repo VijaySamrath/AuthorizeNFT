@@ -14,31 +14,30 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const MyToken = await hre.ethers.getContractFactory("MyToken");
-  const myToken = await MyToken.deploy();
+  const myToken = await hre.ethers.deployContract("MyToken");
+  // const myToken = await MyToken.deploy();
 
-  await myToken.deployed();
+  await myToken.waitForDeployment();
 
-  console.log("MyToken deployed to:", myToken.address);
+  console.log("MyToken deployed to:", myToken.target);
 
 
-const Suzuki = await hre.ethers.getContractFactory("Suzuki");
-const suzuki = await Suzuki.deploy();
 
-await suzuki.deployed();
+const suzuki = await hre.ethers.deployContract("Suzuki");
+// const suzuki = await Suzuki.deploy();
 
-console.log("Suzuki deployed to:", suzuki.address);
+await suzuki.waitForDeployment();
 
-const AuthorizeContract = await hre.ethers.getContractFactory("AuthorizeContract");
-const authorizeContract = await AuthorizeContract.deploy(suzuki.address , myToken.address);
+console.log("Suzuki deployed to:", suzuki.target);
 
-await authorizeContract.deployed();
+const authorizeContract = await hre.ethers.deployContract("AuthorizeContract",[suzuki.target , myToken.target] );
+// const authorizeContract = await AuthorizeContract.deploy(suzuki.target , myToken.target);
 
-console.log("AuthorizeContract deployed to:", authorizeContract.address);
+await authorizeContract.waitForDeployment();
+
+console.log("AuthorizeContract deployed to:", authorizeContract.target);
 
 }
-
-
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
