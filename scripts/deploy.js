@@ -28,7 +28,7 @@ async function main() {
 
   const authorizeContract = await hre.ethers.deployContract(
     "AuthorizeContract",
-    [suzuki.target, myToken.target]
+    [myToken.target]
   );
 
   await authorizeContract.waitForDeployment();

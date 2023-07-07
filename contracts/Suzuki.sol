@@ -19,7 +19,7 @@ contract Suzuki is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         _mintBlockNumber = block.number;
     }
 
-    function safeMint(address to) public {
+    function safeMint(address to) internal {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
