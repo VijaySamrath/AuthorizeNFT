@@ -114,7 +114,7 @@ describe("AuthorizeContract", function () {
     // approve erc20 token before buying nft 
     await myToken.connect(user).approve(authorizeContract, 200);
 
-    // Fast-forward time by 2 days (172800 seconds)
+    // Fast-forward time by 2 days 
     await network.provider.send("evm_increaseTime", [172800]);
     await network.provider.send("evm_mine");
 
